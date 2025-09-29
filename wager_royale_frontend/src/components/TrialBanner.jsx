@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Button } from "./UI";
 
 // PUBLIC_INTERFACE
 /**
@@ -22,12 +23,12 @@ export default function TrialBanner({ onSubscribe }) {
   }, [billing]);
 
   return (
-    <div style={{ ...styles.banner, background: isActive ? "#F59E0B1A" : "#fee2e2" }}>
+    <div className="banner">
       <div>{label}</div>
       {!billing.isSubscribed && (
-        <button style={styles.cta} onClick={onSubscribe}>
+        <Button onClick={onSubscribe}>
           {billing.isTrialActive ? "Manage Subscription" : "Subscribe $13/month"}
-        </button>
+        </Button>
       )}
     </div>
   );
@@ -41,24 +42,3 @@ function formatRemaining(ends) {
   const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
   return `${days}d ${hours}h remaining`;
 }
-
-const styles = {
-  banner: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    border: "1px solid #fde68a",
-    borderRadius: 12,
-    padding: "10px 14px",
-    color: "#7c2d12",
-    marginBottom: 12,
-  },
-  cta: {
-    background: "#2563EB",
-    color: "#fff",
-    border: "none",
-    borderRadius: 10,
-    padding: "8px 12px",
-    cursor: "pointer",
-  },
-};

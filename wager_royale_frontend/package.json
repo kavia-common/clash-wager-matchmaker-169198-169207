@@ -1,6 +1,7 @@
 {
-  "name": "react-kavia",
+  "name": "wager-royale-frontend",
   "version": "0.1.0",
+  "description": "Wager Royale frontend: Ocean Professional themed Clash Royale wagering UI",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",

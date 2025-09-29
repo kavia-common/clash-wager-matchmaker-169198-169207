@@ -1,104 +1,156 @@
-/* CSS Variables for Theme Management */
+/* Ocean Professional Theme Variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --ocean-primary: #2563EB; /* blue-600 */
+  --ocean-secondary: #F59E0B; /* amber-500 */
+  --ocean-error: #EF4444; /* red-500 */
+  --ocean-surface: #ffffff;
+  --ocean-background: #f9fafb; /* gray-50 */
+  --ocean-text: #111827; /* gray-900 */
+  --ocean-muted: #6b7280; /* gray-500 */
+  --ocean-border: #e5e7eb; /* gray-200 */
+  --ocean-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --ocean-primary: #3b82f6; /* blue-500 */
+  --ocean-secondary: #fbbf24; /* amber-400 */
+  --ocean-error: #f87171; /* red-400 */
+  --ocean-surface: #111827; /* gray-900 */
+  --ocean-background: #0b1220; /* deep blue/gray */
+  --ocean-text: #f9fafb; /* gray-50 */
+  --ocean-muted: #9ca3af; /* gray-400 */
+  --ocean-border: #1f2937; /* gray-800 */
+  --ocean-shadow: 0 2px 6px rgba(0,0,0,0.5);
 }
 
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--ocean-background);
+  color: var(--ocean-text);
+}
+
+/* App layout */
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(249,250,251,0.6));
+  background-color: var(--ocean-background);
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+/* Links */
+a {
+  color: var(--ocean-primary);
+  text-decoration: none;
+}
+a:hover { opacity: 0.9; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
+  box-shadow: var(--ocean-shadow);
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--ocean-primary); color: #fff; }
+.btn-secondary { background: var(--ocean-secondary); color: #111827; }
+.btn-ghost { background: transparent; color: var(--ocean-text); border: 1px solid var(--ocean-border); }
+
+/* Cards */
+.card {
+  background: var(--ocean-surface);
+  border: 1px solid var(--ocean-border);
+  border-radius: 14px;
+  box-shadow: var(--ocean-shadow);
+  padding: 16px;
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(90deg, rgba(37,99,235,0.08), rgba(245,158,11,0.06));
+  border-bottom: 1px solid var(--ocean-border);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--ocean-text);
+}
+.brand-badge {
+  width: 34px; height: 34px; border-radius: 10px; background: var(--ocean-primary);
+  display: inline-flex; align-items: center; justify-content: center; color: white; font-weight: 700;
+  box-shadow: var(--ocean-shadow);
+}
+.nav-links { display: flex; gap: 14px; align-items: center; }
+
+/* Containers */
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Utilities */
+.text-muted { color: var(--ocean-muted); }
+.text-title { color: var(--ocean-text); font-weight: 700; }
+.badge {
+  border-radius: 999px; padding: 4px 10px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px;
+}
+.badge-green { background: rgba(16,185,129,.15); color: #065f46; }
+.badge-red { background: rgba(239,68,68,.15); color: #7f1d1d; }
+.banner {
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid #fde68a; background: rgba(245,158,11,0.08);
+  border-radius: 12px; padding: 10px 14px; color: #7c2d12; margin-bottom: 12px;
+}
+
+/* Inputs */
+.input {
+  border: 1px solid var(--ocean-border);
+  background: var(--ocean-surface);
+  color: var(--ocean-text);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+/* Page hero */
+.page-hero {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  background: var(--ocean-primary);
+  color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+  padding: 8px 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ocean-shadow);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
-}
-
-.theme-toggle:active {
-  transform: translateY(0);
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .nav-links { gap: 10px; }
 }

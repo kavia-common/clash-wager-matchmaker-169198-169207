@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getBillingStatus } from "../api/subscription";
 
-// PUBLIC_INTERFACE
 /**
+ * PUBLIC_INTERFACE
  * AuthContext holds authentication, Clash Royale verification, and billing states.
  * This is a scaffold; wire real backend calls where noted.
  */
@@ -63,9 +63,9 @@ export function AuthProvider({ children }) {
     } catch (e) {
       // Non-fatal: backend not wired yet
       return {
-        isTrialActive: false,
+        isTrialActive: true,
         isSubscribed: false,
-        trialEndsAt: null,
+        trialEndsAt: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000).toISOString(),
       };
     }
   }

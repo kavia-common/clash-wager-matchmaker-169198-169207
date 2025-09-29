@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import ClashLinkStatus from "../components/ClashLinkStatus";
 import SearchFilters from "../components/SearchFilters";
 import TrialBanner from "../components/TrialBanner";
+import { Card, Button } from "../components/UI";
 
 /**
  * PUBLIC_INTERFACE
@@ -45,7 +46,7 @@ export default function Matchmaking() {
       return (
         <div>
           <ClashLinkStatus />
-          <div style={styles.blocker}>
+          <div className="card" style={{ marginTop: 12, borderColor: "#fecaca", background: "#fee2e2", color: "#7f1d1d" }}>
             Verify your Clash Royale account to access matchmaking.
           </div>
         </div>
@@ -55,7 +56,7 @@ export default function Matchmaking() {
       return (
         <div>
           <TrialBanner onSubscribe={() => (window.location.href = "/subscription")} />
-          <div style={styles.blocker}>
+          <div className="card" style={{ marginTop: 12, borderColor: "#fecaca", background: "#fee2e2", color: "#7f1d1d" }}>
             Your trial has ended. Subscribe to continue matchmaking.
           </div>
         </div>
@@ -65,47 +66,44 @@ export default function Matchmaking() {
       <div>
         <TrialBanner onSubscribe={() => (window.location.href = "/subscription")} />
         <div style={styles.grid}>
-          <div>
+          <Card>
             <SearchFilters
               initial={filters}
               onChange={(f) => setFilters((prev) => ({ ...prev, ...f }))}
             />
-          </div>
-          <div>
-            <div style={styles.card}>
-              <div style={styles.headerRow}>
-                <span style={styles.title}>Nearby Lobbies</span>
-              </div>
-              {loading ? (
-                <div style={styles.muted}>Loading...</div>
-              ) : results.length === 0 ? (
-                <div style={styles.muted}>No lobbies found for selected crown range.</div>
-              ) : (
-                <ul style={styles.list}>
-                  {results.map((r) => (
-                    <li key={r.id} style={styles.listItem}>
-                      <div>
-                        <div style={styles.name}>{r.name}</div>
-                        <div style={styles.subtext}>Crowns: {r.crowns}</div>
-                      </div>
-                      <button
-                        style={styles.join}
-                        onClick={() => alert(`Join lobby ${r.name} (${r.crowns})`)}
-                      >
-                        Join
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <div style={{ marginTop: 10 }} className="text-muted">
+              Tip: Use a narrow crown range to find closer skill matches.
             </div>
-          </div>
+          </Card>
+          <Card>
+            <div style={styles.headerRow}>
+              <span style={styles.title}>Nearby Lobbies</span>
+              <Button variant="ghost" onClick={() => alert("Refresh search (placeholder)")}>Refresh</Button>
+            </div>
+            {loading ? (
+              <div className="text-muted">Loading...</div>
+            ) : results.length === 0 ? (
+              <div className="text-muted">No lobbies found for selected crown range.</div>
+            ) : (
+              <ul style={styles.list}>
+                {results.map((r) => (
+                  <li key={r.id} style={styles.listItem}>
+                    <div>
+                      <div style={styles.name}>{r.name}</div>
+                      <div style={styles.subtext}>Crowns: {r.crowns}</div>
+                    </div>
+                    <Button onClick={() => alert(`Join lobby ${r.name} (${r.crowns})`)}>Join</Button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Card>
         </div>
       </div>
     );
   }, [filters, results, loading, requireVerified, requireEntitlement]);
 
-  return <div style={styles.container}>{content}</div>;
+  return <div className="container">{content}</div>;
 }
 
 function readFiltersFromQuery() {
@@ -124,49 +122,24 @@ function writeFiltersToQuery(filters) {
 }
 
 const styles = {
-  container: { maxWidth: 980, margin: "24px auto", padding: "0 16px" },
   grid: {
     display: "grid",
     gridTemplateColumns: "360px 1fr",
     gap: 16,
     marginTop: 12,
   },
-  card: {
-    background: "#fff",
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    padding: 16,
-    boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
-  },
   headerRow: { display: "flex", alignItems: "center", justifyContent: "space-between" },
-  title: { fontWeight: 700, color: "#111827" },
-  muted: { color: "#6b7280" },
+  title: { fontWeight: 700, color: "var(--ocean-text)" },
   list: { listStyle: "none", margin: 0, padding: 0 },
   listItem: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    border: "1px solid #e5e7eb",
+    border: "1px solid var(--ocean-border)",
     padding: "10px 12px",
     borderRadius: 10,
     marginBottom: 8,
   },
-  name: { fontWeight: 600, color: "#111827" },
-  subtext: { color: "#6b7280", fontSize: 12 },
-  join: {
-    background: "#2563EB",
-    color: "#fff",
-    border: "none",
-    borderRadius: 8,
-    padding: "8px 12px",
-    cursor: "pointer",
-  },
-  blocker: {
-    marginTop: 12,
-    background: "#fee2e2",
-    border: "1px solid #fecaca",
-    color: "#7f1d1d",
-    borderRadius: 12,
-    padding: 12,
-  },
+  name: { fontWeight: 600, color: "var(--ocean-text)" },
+  subtext: { color: "var(--ocean-muted)", fontSize: 12 },
 };
